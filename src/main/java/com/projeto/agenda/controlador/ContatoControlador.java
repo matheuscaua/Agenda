@@ -8,13 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
+import java.util.List;
+
 @RestController
 @RequestMapping("/crudagenda")
-public class ContatoControlador {
+public class ContatoControlador{
 
     @Autowired
     private ContatoServico contatoServico;
-
 
     @PostMapping("/salvar")
     public ResponseEntity<Contato> salvar(@RequestBody Contato contato){
@@ -24,7 +26,6 @@ public class ContatoControlador {
         contatoServico.salvarContato(contato);
         return ResponseEntity.status(201).build();
     }
-
 
     @PutMapping("/atualizar")
     public ResponseEntity<Contato> atualizar(@RequestBody  Contato contato){
@@ -40,4 +41,10 @@ public class ContatoControlador {
         contatoServico.deletarContato(id);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/contatos")
+    public ResponseEntity<List<Contato>> exibirTodos(){
+        return ResponseEntity.status(200).body(contatoServico.exibirTodos());
+    }
+
 }
