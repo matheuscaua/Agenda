@@ -21,8 +21,7 @@ public class Contato {
     private String sobrenome;
     private String email;
 
-    @ManyToOne
-    @JoinColumn(name = "id_telefone")
-    private Telefone telefone;
+    @OneToMany(mappedBy = "contato", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Telefone> telefones = new ArrayList<Telefone>();
 
 }
