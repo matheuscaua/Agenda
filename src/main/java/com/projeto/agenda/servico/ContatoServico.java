@@ -12,8 +12,12 @@ public class ContatoServico {
     private ContatoRepositorio contatoRepositorio;
 
 
-
+    //Salva um contato na Agenda
     public Contato salvarContato(Contato contato){
+        return contatoRepositorio.save(contato);
+    }
+
+    public Contato atualizarContato(Contato contato){
         return contatoRepositorio.save(contato);
     }
 }
