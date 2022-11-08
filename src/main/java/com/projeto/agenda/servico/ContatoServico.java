@@ -20,4 +20,8 @@ public class ContatoServico {
     public Contato atualizarContato(Contato contato){
         return contatoRepositorio.save(contato);
     }
+
+    public void deletarContato(Long id){
+        contatoRepositorio.deleteById(id);
+    }
 }

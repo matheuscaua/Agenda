@@ -27,12 +27,17 @@ public class ContatoControlador {
 
 
     @PutMapping("/atualizar")
-        public ResponseEntity<Contato> atualizar(@RequestBody  Contato contato){
-            for(int i = 0; i < contato.getTelefones().size(); i++) {
-                contato.getTelefones().get(i).setContato(contato);
-            }
-            contatoServico.atualizarContato(contato);
-            return ResponseEntity.status(200).build();
+    public ResponseEntity<Contato> atualizar(@RequestBody  Contato contato){
+        for(int i = 0; i < contato.getTelefones().size(); i++) {
+            contato.getTelefones().get(i).setContato(contato);
         }
+        contatoServico.atualizarContato(contato);
+        return ResponseEntity.status(200).build();
+    }
 
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Contato> deletar(@PathVariable Long id){
+        contatoServico.deletarContato(id);
+        return ResponseEntity.ok().build();
+    }
 }
