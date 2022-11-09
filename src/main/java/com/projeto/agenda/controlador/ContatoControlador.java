@@ -1,9 +1,14 @@
 package com.projeto.agenda.controlador;
 
 
+import com.projeto.agenda.dto.ContatoDTO;
 import com.projeto.agenda.modelo.Contato;
 import com.projeto.agenda.servico.ContatoServico;
+
+import ch.qos.logback.core.joran.util.beans.BeanUtil;
+
 import org.apache.coyote.Response;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +24,14 @@ public class ContatoControlador{
     private ContatoServico contatoServico;
 
     @PostMapping("/salvar")
-    public ResponseEntity<Contato> salvar(@RequestBody Contato contato){
+    public ResponseEntity<Contato> salvar(@RequestBody ContatoDTO contatoDTO){
+    	Contato contato = new Contato();
+    	BeanUtils.copyProperties(contatoDTO, contato);
+    	
         for(int i = 0; i < contato.getTelefones().size(); i++) {
             contato.getTelefones().get(i).setContato(contato);
         }
+        
         contatoServico.salvarContato(contato);
         return ResponseEntity.status(201).build();
     }
