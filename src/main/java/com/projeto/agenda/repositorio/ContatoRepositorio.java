@@ -7,4 +7,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ContatoRepositorio extends JpaRepository<Contato, Long>{
+	
+	public Contato findByEmail(String email);
+	
+	
 }
