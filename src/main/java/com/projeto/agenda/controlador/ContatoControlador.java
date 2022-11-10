@@ -41,11 +41,14 @@ public class ContatoControlador {
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Contato> atualizar(@RequestBody Contato contato) {
-		for (int i = 0; i < contato.getTelefones().size(); i++) {
-			contato.getTelefones().get(i).setContato(contato);
+		if (contatoServico.buscaContato(contato.getEmail())) {
+			for (int i = 0; i < contato.getTelefones().size(); i++) {
+				contato.getTelefones().get(i).setContato(contato);
+			}
+			contatoServico.atualizarContato(contato);
+			return ResponseEntity.status(200).build();
 		}
-		contatoServico.atualizarContato(contato);
-		return ResponseEntity.status(200).build();
+		return ResponseEntity.status(422).build();
 	}
 
 	@DeleteMapping("/deletar/{id}")
@@ -56,7 +59,7 @@ public class ContatoControlador {
 
 	@GetMapping("/contatos")
 	public ResponseEntity<List<Contato>> exibirTodos() {
-		if(contatoServico.verificaLista()) {
+		if (contatoServico.verificaLista()) {
 			return ResponseEntity.status(200).body(contatoServico.exibirTodos());
 		}
 		return ResponseEntity.status(204).build();
