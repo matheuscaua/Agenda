@@ -20,8 +20,10 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Telefone implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

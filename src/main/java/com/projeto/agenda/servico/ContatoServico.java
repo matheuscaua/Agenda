@@ -39,4 +39,8 @@ public class ContatoServico {
     	return false;
     }
    
+    public boolean verificaLista() {
+    	if(exibirTodos().isEmpty()) return false;
+    	return true;
+    }
 }

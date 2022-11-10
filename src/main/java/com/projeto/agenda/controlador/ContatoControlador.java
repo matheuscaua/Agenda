@@ -26,18 +26,18 @@ public class ContatoControlador {
 	private ContatoServico contatoServico;
 
 	@PostMapping("/salvar")
-    public ResponseEntity<Contato> salvar(@RequestBody ContatoDTO contatoDTO){
-    	Contato contato = new Contato();
-    	BeanUtils.copyProperties(contatoDTO, contato);
-    	if(contatoServico.buscaContato(contato.getEmail())){
-        for(int i = 0; i < contatoDTO.getTelefones().size(); i++) {
-            contatoDTO.getTelefones().get(i).setContato(contato);
-        }
-        contatoServico.salvarContato(contato);
-        return ResponseEntity.status(201).build();
-    	}
-    	return ResponseEntity.status(422).build();
-    }
+	public ResponseEntity<Contato> salvar(@RequestBody ContatoDTO contatoDTO) {
+		Contato contato = new Contato();
+		BeanUtils.copyProperties(contatoDTO, contato);
+		if (contatoServico.buscaContato(contato.getEmail())) {
+			for (int i = 0; i < contatoDTO.getTelefones().size(); i++) {
+				contatoDTO.getTelefones().get(i).setContato(contato);
+			}
+			contatoServico.salvarContato(contato);
+			return ResponseEntity.status(201).build();
+		}
+		return ResponseEntity.status(422).build();
+	}
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Contato> atualizar(@RequestBody Contato contato) {
@@ -56,7 +56,10 @@ public class ContatoControlador {
 
 	@GetMapping("/contatos")
 	public ResponseEntity<List<Contato>> exibirTodos() {
-		return ResponseEntity.status(200).body(contatoServico.exibirTodos());
+		if(contatoServico.verificaLista()) {
+			return ResponseEntity.status(200).body(contatoServico.exibirTodos());
+		}
+		return ResponseEntity.status(204).build();
 	}
 
 }
