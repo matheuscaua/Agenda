@@ -17,30 +17,42 @@ public class ContatoServico {
 
     //Salva um contato na Agenda
     public void salvarContato(Contato contato){
-    	
     	contatoRepositorio.save(contato); 
-
     }
     //Atualia os dados do Contato na Agenda
     public Contato atualizarContato(Contato contato){
         return contatoRepositorio.save(contato);
     }
+    
     //Deleta um Contato da Agenda
     public void deletarContato(Long id){
         contatoRepositorio.deleteById(id);
     }
+    //Exibe a lista de Contatos
     public List<Contato> exibirTodos(){
         return contatoRepositorio.findAll();
     }
     
-    public boolean buscaContato(String email) {
+    
+    public List<Contato> buscoPorNome(String nome){
+    	return contatoRepositorio.findByNome(nome);
+    }
+    
+    
+    //Busca um contato pelo email
+    public Contato buscaContato(String email) {
     	Contato contato = contatoRepositorio.findByEmail(email);
-    	if(contato == null) return true;
-    	return false;
+    	return contato;
     }
    
-    public boolean verificaLista() {
-    	if(exibirTodos().isEmpty()) return false;
+    
+    //Verificações
+    public boolean verificaLista(List<Contato> contatos) {
+    	if(contatos.isEmpty()) return false;
     	return true;
+    }
+    public boolean verificaContato(String email) {
+    	if(buscaContato(email) == null) return true;
+    	return false;
     }
 }

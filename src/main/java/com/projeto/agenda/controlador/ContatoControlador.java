@@ -29,7 +29,7 @@ public class ContatoControlador {
 	public ResponseEntity<Contato> salvar(@RequestBody ContatoDTO contatoDTO) {
 		Contato contato = new Contato();
 		BeanUtils.copyProperties(contatoDTO, contato);
-		if (contatoServico.buscaContato(contato.getEmail())) {
+		if (contatoServico.verificaContato(contato.getEmail())) {
 			for (int i = 0; i < contatoDTO.getTelefones().size(); i++) {
 				contatoDTO.getTelefones().get(i).setContato(contato);
 			}
@@ -41,7 +41,7 @@ public class ContatoControlador {
 
 	@PutMapping("/atualizar")
 	public ResponseEntity<Contato> atualizar(@RequestBody Contato contato) {
-		if (contatoServico.buscaContato(contato.getEmail())) {
+		if (contatoServico.verificaContato(contato.getEmail())) {
 			for (int i = 0; i < contato.getTelefones().size(); i++) {
 				contato.getTelefones().get(i).setContato(contato);
 			}
@@ -59,8 +59,17 @@ public class ContatoControlador {
 
 	@GetMapping("/contatos")
 	public ResponseEntity<List<Contato>> exibirTodos() {
-		if (contatoServico.verificaLista()) {
+		if (contatoServico.verificaLista(contatoServico.exibirTodos())) {
 			return ResponseEntity.status(200).body(contatoServico.exibirTodos());
+		}
+		return ResponseEntity.status(204).build();
+	}
+	
+	//Busca contatos por nome
+	@GetMapping("/buscaPorNome")
+	public ResponseEntity<List<Contato>> buscaPorNome(@RequestBody String nome){
+		if (contatoServico.verificaLista(contatoServico.buscoPorNome(nome))) {
+			return ResponseEntity.status(200).body(contatoServico.buscoPorNome(nome));
 		}
 		return ResponseEntity.status(204).build();
 	}
