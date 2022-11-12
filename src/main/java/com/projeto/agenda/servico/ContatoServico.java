@@ -34,8 +34,9 @@ public class ContatoServico {
     }
     
     
-    public List<Contato> buscoPorNome(String nome){
-    	return contatoRepositorio.findByNome(nome);
+    public Contato buscaPorNome(String nome){
+    	Contato contato = contatoRepositorio.buscarNome(nome);
+    	return contato;
     }
     
     

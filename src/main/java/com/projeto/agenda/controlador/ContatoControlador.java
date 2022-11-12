@@ -66,12 +66,9 @@ public class ContatoControlador {
 	}
 	
 	//Busca contatos por nome
-	@GetMapping("/buscaPorNome")
-	public ResponseEntity<List<Contato>> buscaPorNome(@RequestBody String nome){
-		if (contatoServico.verificaLista(contatoServico.buscoPorNome(nome))) {
-			return ResponseEntity.status(200).body(contatoServico.buscoPorNome(nome));
-		}
-		return ResponseEntity.status(204).build();
+	@GetMapping("/buscaPorNome/{nome}")
+	public ResponseEntity<Contato> buscaPorNome(@PathVariable String nome){
+		return ResponseEntity.status(200).body(contatoServico.buscaPorNome(nome));
 	}
 
 }
