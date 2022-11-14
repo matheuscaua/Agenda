@@ -29,28 +29,28 @@ public class ContatoServico {
     }
     //Exibe a lista de Contatos
     public List<Contato> exibirTodos(){
-    	if(verificaLista(contatoRepositorio.findAll()));
+    	if(verificaLista(contatoRepositorio.findAll())) return null;
     	return contatoRepositorio.findAll();
     }
-    //Busca pelo nome
+    //Busca um Contato(Entidade) pelo nome;
     public List<Contato> buscaPorNome(String nome){
     	if(verificaLista(contatoRepositorio.buscarNome(nome)));
     	return contatoRepositorio.buscarNome(nome);
     }
     
-    
-    
-    
     //Busca um contato pelo email
     public Contato buscaContato(String email) {
-    	 return contatoRepositorio.findByEmail(email)
-    			 .orElseThrow();
+    	 return contatoRepositorio.getByEmail(email);
     }
    
     //Verificações
+    
+    //Verifica se a lista atribuída está vazia ou não
     public boolean verificaLista(List<Contato> contatos) {
     	return contatos.isEmpty();
     }
+    
+    //Verifica se existe um Contato com este email
     public boolean verificaContato(String email) {
     	if(buscaContato(email) == null) return true;
     	return false;

@@ -13,7 +13,7 @@ import com.projeto.agenda.modelo.Contato;
 @Repository
 public interface ContatoRepositorio extends JpaRepository<Contato, Long>{
 	
-	Optional<Contato> findByEmail(String email);
+	Contato getByEmail(String email);
 	
 	@Query(value = "SELECT * FROM contato WHERE nome LIKE %?1%", nativeQuery = true)
 	List<Contato> buscarNome(String nome);
