@@ -3,9 +3,7 @@ package com.projeto.agenda.servico;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.projeto.agenda.modelo.Contato;
 import com.projeto.agenda.repositorio.ContatoRepositorio;
@@ -34,16 +32,19 @@ public class ContatoServico {
     	if(verificaLista(contatoRepositorio.findAll()));
     	return contatoRepositorio.findAll();
     }
-    
+    //Busca pelo nome
     public List<Contato> buscaPorNome(String nome){
     	if(verificaLista(contatoRepositorio.buscarNome(nome)));
     	return contatoRepositorio.buscarNome(nome);
     }
     
+    
+    
+    
     //Busca um contato pelo email
     public Contato buscaContato(String email) {
     	 return contatoRepositorio.findByEmail(email)
-    			 .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT));
+    			 .orElseThrow();
     }
    
     //Verificações
