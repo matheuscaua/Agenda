@@ -59,16 +59,17 @@ public class ContatoControlador {
 
 	@GetMapping("/contatos")
 	public ResponseEntity<List<Contato>> exibirTodos() {
-		if (contatoServico.verificaLista(contatoServico.exibirTodos())) {
-			return ResponseEntity.status(200).body(contatoServico.exibirTodos());
-		}
+		if (!contatoServico.verificaLista(contatoServico.exibirTodos())) //Se a lista NÃO for vazia retorna a mesma.
+		return ResponseEntity.status(200).body(contatoServico.exibirTodos());
 		return ResponseEntity.status(204).build();
 	}
 	
 	//Busca contatos por nome
 	@GetMapping("/buscaPorNome/{nome}")
-	public ResponseEntity<Contato> buscaPorNome(@PathVariable String nome){
+	public ResponseEntity<List<Contato>> buscaPorNome(@PathVariable String nome){
+		if (!contatoServico.verificaLista(contatoServico.buscaPorNome(nome)))
 		return ResponseEntity.status(200).body(contatoServico.buscaPorNome(nome));
+		return ResponseEntity.status(204).build();
 	}
 
 }
