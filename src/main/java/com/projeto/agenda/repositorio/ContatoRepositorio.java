@@ -1,7 +1,6 @@
 package com.projeto.agenda.repositorio;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,7 +15,10 @@ public interface ContatoRepositorio extends JpaRepository<Contato, Long>{
 	Contato getByEmail(String email);
 	
 	@Query(value = "SELECT * FROM contato WHERE nome LIKE %?1%", nativeQuery = true)
-	List<Contato> buscarNome(String nome);
+	List<Contato> buscarPorNome(String nome);
+	
+	@Query(value = "SELECT * FROM contato WHERE email = ?1", nativeQuery = true)
+	List<Contato> buscarPorEmail(String nome);
 	
 	
 }

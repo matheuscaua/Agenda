@@ -18,6 +18,8 @@ public class ContatoDTO {
     private String sobrenome;
     private String email;
     
+    private String endereco;
+    
     @OneToMany(mappedBy = "contato", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<Telefone>();
 }

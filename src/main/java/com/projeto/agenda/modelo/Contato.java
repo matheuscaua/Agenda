@@ -20,7 +20,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-@Entity
+@Entity(name = "tb_contato")
 public class Contato implements Serializable{
 
     @Serial
@@ -34,6 +34,7 @@ public class Contato implements Serializable{
     private String sobrenome;
     private String email;
 
+    private String endereco;
 
     @OneToMany(mappedBy = "contato", orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<Telefone>();
