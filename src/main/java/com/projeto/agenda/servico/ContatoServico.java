@@ -42,9 +42,8 @@ public class ContatoServico {
     	if(verificaLista(contatoRepositorio.buscarPorNome(nome))) return contatoRepositorio.buscarPorNome(nome);
     	return null;
     }
-    public List<Contato> buscaPorEmail(String email){
-    	if(verificaLista(contatoRepositorio.buscarPorEmail(email))) return contatoRepositorio.buscarPorEmail(email);
-    	return null;
+    public Contato buscaPorEmail(String email){
+    	return contatoRepositorio.buscarPorEmail(email);
     }
    
     //Verifica se a lista atribuída está vazia ou não

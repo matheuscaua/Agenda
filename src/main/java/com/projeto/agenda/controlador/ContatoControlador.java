@@ -59,7 +59,7 @@ public class ContatoControlador {
 
 	@GetMapping("/contatos")
 	public ResponseEntity<List<Contato>> exibirTodos() {
-		if (!contatoServico.exibirTodos().isEmpty()) //Se a lista NÃO for vazia retorna a mesma.
+		if (contatoServico.exibirTodos() != null) //Se a lista NÃO for vazia retorna a mesma.
 		return ResponseEntity.status(200).body(contatoServico.exibirTodos());
 		return ResponseEntity.status(204).build();
 	}
@@ -74,8 +74,8 @@ public class ContatoControlador {
 	
 	
 	@GetMapping("/buscaPorEmail/{email}")
-	public ResponseEntity<List<Contato>> buscaPorEmail(@PathVariable String email){
-		if(!contatoServico.buscaPorEmail(email).isEmpty()) return ResponseEntity.status(200).body(contatoServico.buscaPorEmail(email));
+	public ResponseEntity<Contato> buscaPorEmail(@PathVariable String email){
+		if(contatoServico.buscaPorEmail(email) != null) return ResponseEntity.status(200).body(contatoServico.buscaPorEmail(email));
 		return ResponseEntity.status(204).build();
 	}
 

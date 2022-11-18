@@ -14,11 +14,11 @@ public interface ContatoRepositorio extends JpaRepository<Contato, Long>{
 	
 	Contato getByEmail(String email);
 	
-	@Query(value = "SELECT * FROM contato WHERE nome LIKE %?1%", nativeQuery = true)
+	@Query(value = "SELECT * FROM tb_contato WHERE nome LIKE %?1%", nativeQuery = true)
 	List<Contato> buscarPorNome(String nome);
 	
-	@Query(value = "SELECT * FROM contato WHERE email = ?1", nativeQuery = true)
-	List<Contato> buscarPorEmail(String nome);
+	@Query(value = "SELECT * FROM tb_contato WHERE email = ?1", nativeQuery = true)
+	Contato buscarPorEmail(String nome);
 	
 	
 }
